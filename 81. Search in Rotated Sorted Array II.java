@@ -35,13 +35,15 @@ class Solution {
                 continue;
             }
             if(nums[low]<=nums[mid]){
-                if(nums[low]<=target && target<=nums[mid]){
+                if(nums[low]<=target && target<=nums[mid]){ 
+                // If target is in left half trim the right half
                     high = mid-1;
                 }else{
                     low = mid +1;
                 }
             }else{
                 if(nums[mid]<=target&& target<=nums[high]){
+                    // If target is in right half trim the left half
                     low = mid +1;
                 }else 
                     high = mid-1;
