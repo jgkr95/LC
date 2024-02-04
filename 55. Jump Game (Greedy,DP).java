@@ -17,16 +17,30 @@
 // Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
  
 
- class Solution {
+
+class Solution {
     public boolean canJump(int[] nums) {
-        int n=nums.length;
+        int n = nums.length;
+
+        //====================================================
+
         int goal = n-1;
         for(int i=n-1;i>=0;i--){
-            if(i+nums[i]>=goal)
-                goal=i;
+        if(i+nums[i]>=goal)
+        goal=i;
         }
 
-       return goal == 0 ?  true : false;
-        
+        return goal == 0 ? true : false;
+
+        //===========================================================
+
+        int goal = 0;
+        for (int i = 0; i < n; i++) {
+            if (goal < i)
+                return false;
+            goal = Math.max(goal, i + nums[i]);
+        }
+        return true;
+
     }
 }
