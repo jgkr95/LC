@@ -35,7 +35,6 @@ class Solution {
     
         return rob2;
 
-
     //     int[] dp=new int[n+1];
 
     //     dp[0]=0;
