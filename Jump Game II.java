@@ -47,5 +47,23 @@ class Solution {
             res++;
         }
         return res;
+
+        ///==============================================
+        int res=0;
+        int end=0;
+        int far=0;
+        for(int i=0; i<nums.length-1; i++){
+            far=Math.max(far,(i+nums[i]));
+            if(far>=nums.length-1){
+                return ++res;
+            }
+            if(i==end){ //visited all item in current level
+                res++;  // increment level
+                end = far;  //queue size for next level
+            }
+            
+        }
+        return res;
+        //=======================================================
     }
 }
