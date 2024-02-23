@@ -55,11 +55,11 @@ var maximalSquare = function(matrix) {
         return result;
     }
 
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            helper(i, j);
-        }
-    }
+    // for (let i = 0; i < rows; i++) {
+    //     for (let j = 0; j < cols; j++) {
+            helper(0, 0);
+    //     }
+    // }
 
     let maxSide = Math.max(...cache.flat());
     return maxSide * maxSide;
