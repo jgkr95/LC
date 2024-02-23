@@ -10,15 +10,14 @@ var maximalSquare = function (matrix) {
         if (i >= rows || j >= col) {
             return 0;
         }
-        if (cache[i][j] != -1) return cache[i][j];
+        if (cache[i][j] != -1) return cache[i][j]
+        let down = helper(i + 1, j)
+        let right = helper(i, j + 1)
+        let diag = helper(i + 1, j + 1)
 
-        let down = helper(i + 1, j);
-        let right = helper(i, j + 1);
-        let diag = helper(i + 1, j + 1);
-
-        let result = 0;
+        result = 0;
         if (matrix[i][j] == '1') {
-            result = 1 + Math.min(down, Math.min(right, diag));
+            result = 1 + Math.min(down, Math.min(right, diag))
         }
         cache[i][j] = result;
         return result;
