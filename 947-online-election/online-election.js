@@ -15,7 +15,7 @@ var TopVotedCandidate = function (persons, times) {
         timeLeads[times[i]] = currentLead;
 
     }
-    console.log(timeLeads)
+    // console.log(timeLeads)
     
     this.timeLeads = timeLeads;
     this.times=times;
@@ -44,7 +44,7 @@ TopVotedCandidate.prototype.q = function (t) {
             targetIndex = mid;
         }
     }
-    console.log(t,targetIndex-1,this.times[targetIndex-1],this.timeLeads[this.times[targetIndex - 1]])
+    // console.log(t,targetIndex-1,this.times[targetIndex-1],this.timeLeads[this.times[targetIndex - 1]])
     return this.timeLeads[this.times[targetIndex]]
 };
 
