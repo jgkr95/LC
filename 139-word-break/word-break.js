@@ -11,7 +11,6 @@ var wordBreak = function (s, wordDict) {
     for (let i = s.length - 1; i >= 0; i--) {
         for (let j = 0; j < wordDict.length; j++) {
             let word = wordDict[j];
-            console.log(i + word.length," ",s.substring(i, i+word.length)," ",word)
             if ((i + word.length) <= s.length && s.substring(i, i+ word.length) == word)       {
                 dp[i] = dp[i + word.length];
             }
