@@ -1,10 +1,7 @@
-/**
- * @param {string} s
- * @param {string[]} wordDict
- * @return {string[]}
- */
 var wordBreak = function(s, wordDict) {
     const res = [];
+    
+    // Function to generate all possible words starting from a given index
     function getWords(index, s) {
         let words = [];
         for (let i = index; i < s.length; i++) {
@@ -12,21 +9,31 @@ var wordBreak = function(s, wordDict) {
         }
         return words;
     }
+    
+    // Depth-first search function to explore all possible word combinations
     function dfs(startIndex, path) {
+        // If we have reached the end of the string, add the current path to results
         if (startIndex === s.length) {
             res.push(path.join(' '));
         }
+        
+        // Explore all possible edges (words) starting from the current index
         for (let edge of getWords(startIndex, s)) {
-            if (wordDict.includes(edge)) {
-                path.push(edge);
-                dfs(startIndex + edge.length, path);
-                path.pop();
+            if (wordDict.includes(edge)) { // If the current edge (word) is in wordDict
+                path.push(edge); // Add the current edge to the path
+                dfs(startIndex + edge.length, path); // Recur with the updated start index
+                path.pop(); // Backtrack by removing the last added word from the path
             }
         }
     }
+    
+    // Start depth-first search from index 0 with an empty path
     dfs(0, []);
+    
+    // Return the list of all valid sentences
     return res;
 };
+
 /**
  * @param {string} s
  * @param {string[]} wordDict
