@@ -12,6 +12,8 @@ var maxDistance = function(position, m) {
     let max = position[position.length - 1] - position[0];
     let res = 0;
 
+    // Iterate 0 to max for bruteforce
+
     // Binary search for the maximum minimum distance
     let low = 1, high = max;
     while (low <= high) {
