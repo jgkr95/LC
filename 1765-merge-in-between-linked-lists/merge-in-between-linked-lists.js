@@ -28,7 +28,6 @@ var mergeInBetween = function(list1, a, b, list2) {
     }
     head.next = list2;
 
-    // let list2Cur = list2;
 
     while(list2.next){
         list2 = list2.next;
