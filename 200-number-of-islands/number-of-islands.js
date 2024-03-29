@@ -8,8 +8,7 @@ var numIslands = function (grid) {
     let res = 0;
 
     function dfs(i, j) {
-        if (i < 0 || i > m-1 || j < 0 || j > n-1) return 
-        if(grid[i][j] == 0) return;
+        if (i < 0 || i > m-1 || j < 0 || j > n-1 || grid[i][j] == 0) return 
         grid[i][j] = 0;
         dfs(i + 1, j)
         dfs(i - 1, j)
