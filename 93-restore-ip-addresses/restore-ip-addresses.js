@@ -12,7 +12,6 @@ var restoreIpAddresses = function (s) {
             }
             if(noOfDots > 4) return
         for (let i = curIndex; i < Math.min(curIndex + 3, s.length); i++) {
-            console.log({curIndex, noOfDots,curIp},Number(s.substring(curIndex, i + 1)))
             if (Number(s.substring(curIndex, i+1 )) < 256 && (i==curIndex || s[curIndex] != '0')) {
                 bt(i+1, noOfDots + 1, curIp+s.substring(curIndex, i +1)+'.')
             }
