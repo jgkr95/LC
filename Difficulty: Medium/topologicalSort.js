@@ -1,59 +1,112 @@
+//{ Driver Code Starts
+// Initial Template for javascript
+'use strict';
+
+function check(V, res, adj) {
+    if (V != res.length) return 0;
+    let map = new Array(V);
+    map.fill(-1);
+    for (let i = 0; i < V; i++) {
+        map[res[i]] = i;
+    }
+    for (let i = 0; i < V; i++) {
+        for (const v of adj[i]) {
+            if (map[i] > map[v]) return 0;
+        }
+    }
+    return 1;
+}
+
+function main() {
+    const readline = require("readline").createInterface({
+        input : process.stdin,
+        output : process.stdout
+    });
+
+    let input = [];
+    readline.on("line", (line) => { input.push(line); });
+
+    readline.on("close", () => {
+        let index = 0;
+        let tc = parseInt(input[index++]);
+        while (tc-- > 0) {
+            let V = parseInt(input[index++]);
+            let E = parseInt(input[index++]);
+            let x = V;
+            let edges = [];
+            let adj = new Array(V);
+            for (let i = 0; i < V; i++) {
+                adj[i] = new Array();
+            }
+
+            for (let i = 0; i < E; i++) {
+                let [u, v] = input[index++].split(" ").map(Number);
+                edges.push([ u, v ]);
+                adj[u].push(v);
+            }
+
+            let obj = new Solution();
+            let res = obj.topoSort(V, edges);
+            if (check(x, res, adj)) {
+                console.log("true");
+            } else {
+                console.log("false");
+            }
+            console.log("~");
+        }
+    });
+}
+
+main();
+// } Driver Code Ends
+
+
+// User function Template for javascript
+
 /**
- * @param {number[][]} grid
- * @return {number}
+ * @param {number} V
+ * @param {number[][]} adj
+ * @returns {number[]}
  */
-var numEnclaves = function (grid) {
-    let n = grid.length;
-    let m = grid[0].length;
+class Solution {
+    dfs(node, adj, visited, st) {
+        visited[node] = true;
 
-    let vis = Array(n).fill(0).map(() => Array(m).fill(0))
-
-    // Check left and right borders
-
-    for (let i = 0; i < n; i++) {
-        if (grid[i][0] == 1 && !vis[i][0]) {
-            dfs(i, 0, grid, vis, n, m)
-        }
-        if (grid[i][m-1] == 1 && !vis[i][m-1]) {
-            dfs( i, m - 1, grid, vis, n, m)
-        }
-    }
-
-    // Check top and bottom borders
-
-    for (let i = 0; i < m; i++) {
-        if (grid[0][i] == 1 && !vis[0][i]) {
-            dfs(i, n - 1, grid, vis, n, m)
-        }
-        if (grid[n-1][i] == 1 && !vis[n - 1][i]) {
-            dfs(n - 1, i, grid, vis, n, m)
-        }
-    }
-
-    let res = 0;
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < m; j++) {
-            if (!vis[i][j] && grid[i][j] == 1) {
-                res++;
+        for (const curNode of adj[node] || []) {
+            if (!visited[curNode]) {
+                this.dfs(curNode, adj, visited, st);
             }
         }
+
+        st.push(node);
     }
-
-    return res
-
-};
-
-function dfs(row, col, grid, vis, n, m) {
-    vis[row][col] = true;
-
-    delRow = [-1, 0, 1, 0]
-    delCol = [0, 1, 0, -1]
-
-    for (let i = 0; i < 4; i++) {
-        let dRow = delRow[i] + row
-        let dCol = delCol[i] + col;
-        if (dRow >= 0 && dRow < n && dCol >= 0 && dCol < m && !vis[dRow][dCol] && grid[dRow][dCol] == 1) {
-            dfs(dRow, dCol, grid, vis, n, m)
+    
+    buildAdj(edges,V){
+        let adj=[]
+        for(let i=0;i<V;i++){
+            adj[i]=[]
         }
+        
+        for(const [u,v] of edges){
+            adj[u].push(v);
+        }
+        return adj
+    }
+    
+
+    topoSort(V, edges) {
+        let visited = Array(V).fill(false);
+        let st = [];
+        let adj=this.buildAdj(edges,V)
+
+        for (let i = 0; i < V; i++) {
+            if (!visited[i]) {
+                this.dfs(i, adj, visited, st)
+            }
+        }
+        //console.log(st)
+
+        return st.reverse(); // Only reverse once
     }
 }
+
