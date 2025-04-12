@@ -14,7 +14,7 @@ var eventualSafeNodes = function (graph) {
 
     for (let i = 0;i<n;i++){
         for(const node of graph[i]){
-            console.log({i,node},graph[i])
+            //console.log({i,node},graph[i])
             adjRev[node].push(i);
             indegree[i]++
         }
