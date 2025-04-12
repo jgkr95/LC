@@ -19,7 +19,6 @@ var findOrder = function (numCourses, prerequisites) {
 
     for (let i = 0; i < n; i++) {
         for (const node of adj[i]) {
-            console.log({node})
             indegree[node]++
         }
     }
