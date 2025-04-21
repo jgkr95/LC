@@ -13,22 +13,24 @@
 var maxPathSum = function(root) {
     let maxSum = -Infinity
 
-    function dfs(root){
-        if(!root){
-            return 0;
-        }
+    function dfs(node) {
+        if (!node) return 0;
 
-        let leftSum = Math.max(dfs(root.left),0)
-        let rightSum = Math.max(dfs(root.right),0)
+        // Get max gain from left and right (ignore negative paths)
+        const leftGain = Math.max(dfs(node.left), 0);
+        const rightGain = Math.max(dfs(node.right), 0);
 
-        let currentPathSum = root.val + leftSum + rightSum
+        // Max path sum using this node as the highest point (root of this path)
+        const currentPathSum = node.val + leftGain + rightGain;
 
-        maxSum = Math.max(maxSum,currentPathSum)
+        // Update global max if needed
+        maxSum = Math.max(maxSum, currentPathSum);
 
-        return root.val + Math.max(leftSum, rightSum)
+        // Return max gain including this node and one of its subtrees
+        return node.val + Math.max(leftGain, rightGain);
     }
 
-    dfs(root)
-    return maxSum
+    dfs(root);
+    return maxSum;
     
 };
