@@ -11,23 +11,19 @@
  * @return {number[]}
  */
 var rightSideView = function(root) {
-    let queue = [];
-    queue.push(root);
-    let res = [];
-    while(queue.length){
-        let rightSide = null;
-        let len = queue.length;
-        for(let i=0;i<len;i++){
-            let node = queue.shift();
-            if(node != null){
-                rightSide=node;
-                queue.push(node.left);
-                queue.push(node.right);
-
-            }
+    let vis={}
+    let res=[]
+    function dfs(node, level)  {
+        if(node==null){
+            return
         }
-        if(rightSide != null)
-            res.push(rightSide.val)
-    }
-    return res;
+        if(!vis[level]){
+            res.push(node.val)
+        }
+        vis[level]=true
+        dfs(node.right,level+1)
+        dfs(node.left,level+1)
+    } 
+    dfs(root,0)
+    return res
 };
